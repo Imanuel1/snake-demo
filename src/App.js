@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+import SnakeGame from "./components/SnakeGame";
 
 function App() {
+  const [isStartGame, setIsStartGame] = useState(undefined);
+  const [record, setRecord] = useState(0);
+  const [currentPoints, setCurrentPoints] = useState(0);
+
+  const handleOnfailed = (points) => {
+    setIsStartGame(false);
+    setCurrentPoints(points);
+    setRecord(prev => points > prev ? points : prev)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isStartGame ? (
+        <SnakeGame handleOnfailed={handleOnfailed}/>
+      ) : (
+        <header className="App-header">
+          <h1>
+            {isStartGame === undefined
+              ? "התחל לשחק במשחק סנייק"
+              : `צברת ${currentPoints} נקודות, נסה לשחק שוב!`}
+          </h1>
+          <span>{`שיא נקודות - ${record}`}</span>
+          <button style={{ marginTop: "auto", marginBottom: "25px" }}
+            onClick={() => setIsStartGame(true)}
+          >
+            <h3>{"התחל לשחק"}</h3>
+          </button>
+        </header>
+      )}
     </div>
   );
 }

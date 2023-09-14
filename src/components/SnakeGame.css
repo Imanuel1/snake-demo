@@ -1,0 +1,15 @@
+/* SnakeGame.css */
+
+.cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+  }
+  
+  .snake {
+    background-color: green; /* Color of the snake */
+  }
+  
+  .food {
+    background-color: red; /* Color of the food */
+  }
