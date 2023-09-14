@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Controller } from "./Controller";
 import "./SnakeGame.css";
 
 const CELL_SIZE = 30;
-const ROWS = Math.floor(window.innerHeight/CELL_SIZE)// 24;
-const COLS = Math.floor(window.innerWidth/ CELL_SIZE)//50;
+const ROWS = Math.floor(window.innerHeight / CELL_SIZE); // 24;
+const COLS = Math.floor(window.innerWidth / CELL_SIZE); //50;
 const randomPosition = () => {
   return {
     row: Math.floor(Math.random() * ROWS),
@@ -54,11 +55,11 @@ function SnakeGame({ handleOnfailed }) {
         break;
     }
 
-    snake.map(part => {
+    snake.map((part) => {
       if (part.col === head.col && part.row === head.row) {
-        handleOnfailed(snake.length - 2)
+        handleOnfailed(snake.length - 2);
       }
-    })
+    });
 
     const newSnake = [head, ...snake];
     if (head.row === food.row && head.col === food.col) {
@@ -73,16 +74,16 @@ function SnakeGame({ handleOnfailed }) {
   const handleKeyPress = (event) => {
     switch (event.key) {
       case "ArrowUp":
-        setDirection("up");
+        setDirection(prev => prev === "down" ? prev : "up");
         break;
       case "ArrowDown":
-        setDirection("down");
+        setDirection(prev => prev === "up" ? prev : "down");
         break;
       case "ArrowLeft":
-        setDirection("left");
+        setDirection(prev => prev === "right" ? prev : "left");
         break;
       case "ArrowRight":
-        setDirection("right");
+        setDirection(prev => prev === "left" ? prev : "right");
         break;
       default:
         break;
@@ -114,18 +115,21 @@ function SnakeGame({ handleOnfailed }) {
   };
 
   return (
-    <div
-      className="snake-game"
-      // tabIndex="0"
-      // onKeyDown={handleKeyPress}
-      style={{
-        display: "grid",
-        gridTemplateRows: `repeat(${ROWS}, ${CELL_SIZE}px)`,
-        gridTemplateColumns: `repeat(${COLS}, ${CELL_SIZE}px)`,
-      }}
-    >
-      {renderBoard()}
-    </div>
+    <>
+      <div
+        className="snake-game"
+        // tabIndex="0"
+        // onKeyDown={handleKeyPress}
+        style={{
+          display: "grid",
+          gridTemplateRows: `repeat(${ROWS}, ${CELL_SIZE}px)`,
+          gridTemplateColumns: `repeat(${COLS}, ${CELL_SIZE}px)`,
+        }}
+      >
+        {renderBoard()}
+      </div>
+      <Controller setDirection={handleKeyPress} />
+    </>
   );
 }
 
