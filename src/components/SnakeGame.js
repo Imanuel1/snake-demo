@@ -3,8 +3,8 @@ import { Controller } from "./Controller";
 import "./SnakeGame.css";
 
 const CELL_SIZE = 30;
-let ROWS = Math.floor((window.innerHeight - 5) / CELL_SIZE); // 24;
-let COLS = Math.floor((window.innerWidth - 5) / CELL_SIZE); //50;
+let ROWS = Math.floor((window.innerHeight - 10) / CELL_SIZE); // 24;
+let COLS = Math.floor((window.innerWidth - 10) / CELL_SIZE); //50;
 const randomPosition = () => {
   return {
     row: Math.floor(Math.random() * ROWS),
@@ -22,10 +22,10 @@ function SnakeGame({ handleOnfailed }) {
 
   useEffect(() => {
     const handleResizeScreen = () => {
-      ROWS = Math.floor((window.innerHeight - 5) / CELL_SIZE);
-      COLS = Math.floor((window.innerWidth - 5) / CELL_SIZE);;
+      ROWS = Math.floor((window.innerHeight - 10) / CELL_SIZE);
+      COLS = Math.floor((window.innerWidth - 10) / CELL_SIZE);
       // Use screenHeight and screenWidth as needed
-    }
+    };
     document.addEventListener("keydown", handleKeyPress);
     window.addEventListener("resize", handleResizeScreen);
 
@@ -100,15 +100,19 @@ function SnakeGame({ handleOnfailed }) {
   };
 
   const renderCell = (row, col) => {
-    const isSnake = snake.some(
-      (segment) => segment.row === row && segment.col === col
-    );
+    const isSnakeHead = snake[0].row === row && snake[0].col === col;
+    const isSnake =
+      snake.some((segment) => segment.row === row && segment.col === col) &&
+      !isSnakeHead;
+
     const isFood = food.row === row && food.col === col;
 
     return (
       <div
         key={`${row}-${col}`}
-        className={`cell ${isSnake ? "snake" : ""} ${isFood ? "food" : ""}`}
+        className={`cell ${isSnake ? "snake" : ""} ${
+          isSnakeHead ? `snakeHead ${direction}` : ""
+        } ${isFood ? "food" : ""}`}
       ></div>
     );
   };

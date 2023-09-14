@@ -19,7 +19,7 @@ export const Controller = ({ setDirection }) => {
           borderRadius: "2rem 2rem 0 0",
           borderColor: "grey",
           height: "38px",
-          width: "20px",
+          width: "30px",
           background: "rgba(220, 220, 220, 0.5)",
         }}
         onClick={() => setDirection({key: "ArrowUp"})}
@@ -29,7 +29,7 @@ export const Controller = ({ setDirection }) => {
           style={{
             borderRadius: "2rem 0 0 2rem",
             borderColor: "grey",
-            height: "20px",
+            height: "30px",
             width: "38px",
             background: "rgba(220, 220, 220, 0.5)",
           }}
@@ -48,7 +48,7 @@ export const Controller = ({ setDirection }) => {
           style={{
             borderRadius: "0 2rem 2rem 0",
             borderColor: "grey",
-            height: "20px",
+            height: "30px",
             width: "38px",
             background: "rgba(220, 220, 220, 0.5)",
           }}
@@ -60,7 +60,7 @@ export const Controller = ({ setDirection }) => {
           borderRadius: "0 0 2rem 2rem",
           borderColor: "grey",
           height: "38px",
-          width: "20px",
+          width: "30px",
           background: "rgba(220, 220, 220, 0.5)",
         }}
         onClick={() => setDirection({key: "ArrowDown"})}

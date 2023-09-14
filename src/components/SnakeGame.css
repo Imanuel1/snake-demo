@@ -7,9 +7,33 @@
   }
   
   .snake {
-    background-color: green; /* Color of the snake */
+    background-color: #a0c432; /* Color of the snake */
+    border-radius: 2.5rem;
+  }
+  
+  .snakeHead {
+    background-image: url(../icons/snakeHead.png); /* Color of the snake */
+    background-repeat: no-repeat;
+    background-size: 35px 30px;
+    background-position-y: center;
+    background-position-x: center;
+
+    /* background-size: cover; */
+  }
+  .snakeHead.left{
+    transform: rotate(90deg);
+  }
+  .snakeHead.up{
+    transform: rotate(180deg);
+  }
+  .snakeHead.right{
+    transform: rotate(270deg);
   }
   
   .food {
-    background-color: red; /* Color of the food */
+    background-image: url(../icons/apple.png); /* Color of the snake */
+    background-repeat: no-repeat;
+    background-size: 22px 28px;
+    background-position-x: center;
+    /* background-color: red; Color of the food */
   }
