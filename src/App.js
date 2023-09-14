@@ -19,14 +19,14 @@ function App() {
       {isStartGame ? (
         <SnakeGame handleOnfailed={handleOnfailed}/>
       ) : (
-        <header className="App-header">
+        <header className="App-header" style={{width: "100%", height: "calc(100% - 25px)", paddingBottom: "25px"}}>
           <h1>
             {isStartGame === undefined
               ? "התחל לשחק במשחק סנייק"
               : `צברת ${currentPoints} נקודות, נסה לשחק שוב!`}
           </h1>
           <span>{`שיא נקודות - ${record}`}</span>
-          <button style={{ marginTop: "auto", marginBottom: "25px" }}
+          <button style={{ marginTop: "auto", borderRadius: "1rem", padding: "0 15px"}}
             onClick={() => setIsStartGame(true)}
           >
             <h3>{"התחל לשחק"}</h3>

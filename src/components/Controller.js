@@ -22,7 +22,7 @@ export const Controller = ({ setDirection }) => {
           width: "20px",
           background: "rgba(220, 220, 220, 0.5)",
         }}
-        onClick={() => setDirection("ArrowUp")}
+        onClick={() => setDirection({key: "ArrowUp"})}
       />
       <div style={{ display: "flex", alignItems: "center" }}>
         <button
@@ -33,7 +33,7 @@ export const Controller = ({ setDirection }) => {
             width: "38px",
             background: "rgba(220, 220, 220, 0.5)",
           }}
-          onClick={() => setDirection("ArrowLeft")}
+          onClick={() => setDirection({key: "ArrowLeft"})}
         />
         <div
           style={{
@@ -52,7 +52,7 @@ export const Controller = ({ setDirection }) => {
             width: "38px",
             background: "rgba(220, 220, 220, 0.5)",
           }}
-          onClick={() => setDirection("ArrowRight")}
+          onClick={() => setDirection({key: "ArrowRight"})}
         />
       </div>
       <button
@@ -63,7 +63,7 @@ export const Controller = ({ setDirection }) => {
           width: "20px",
           background: "rgba(220, 220, 220, 0.5)",
         }}
-        onClick={() => setDirection("ArrowDown")}
+        onClick={() => setDirection({key: "ArrowDown"})}
       />
     </div>
   );

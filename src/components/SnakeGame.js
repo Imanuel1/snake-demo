@@ -3,8 +3,8 @@ import { Controller } from "./Controller";
 import "./SnakeGame.css";
 
 const CELL_SIZE = 30;
-const ROWS = Math.floor(window.innerHeight / CELL_SIZE); // 24;
-const COLS = Math.floor(window.innerWidth / CELL_SIZE); //50;
+let ROWS = Math.floor((window.innerHeight - 5) / CELL_SIZE); // 24;
+let COLS = Math.floor((window.innerWidth - 5) / CELL_SIZE); //50;
 const randomPosition = () => {
   return {
     row: Math.floor(Math.random() * ROWS),
@@ -21,9 +21,18 @@ function SnakeGame({ handleOnfailed }) {
   const [direction, setDirection] = useState("right");
 
   useEffect(() => {
+    const handleResizeScreen = () => {
+      ROWS = Math.floor((window.innerHeight - 5) / CELL_SIZE);
+      COLS = Math.floor((window.innerWidth - 5) / CELL_SIZE);;
+      // Use screenHeight and screenWidth as needed
+    }
     document.addEventListener("keydown", handleKeyPress);
+    window.addEventListener("resize", handleResizeScreen);
 
-    return () => document.removeEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener("resize", handleResizeScreen);
+    };
   }, []);
 
   useEffect(() => {
@@ -74,16 +83,16 @@ function SnakeGame({ handleOnfailed }) {
   const handleKeyPress = (event) => {
     switch (event.key) {
       case "ArrowUp":
-        setDirection(prev => prev === "down" ? prev : "up");
+        setDirection((prev) => (prev === "down" ? prev : "up"));
         break;
       case "ArrowDown":
-        setDirection(prev => prev === "up" ? prev : "down");
+        setDirection((prev) => (prev === "up" ? prev : "down"));
         break;
       case "ArrowLeft":
-        setDirection(prev => prev === "right" ? prev : "left");
+        setDirection((prev) => (prev === "right" ? prev : "left"));
         break;
       case "ArrowRight":
-        setDirection(prev => prev === "left" ? prev : "right");
+        setDirection((prev) => (prev === "left" ? prev : "right"));
         break;
       default:
         break;
