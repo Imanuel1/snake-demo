@@ -3,8 +3,8 @@ import { Controller } from "./Controller";
 import "./SnakeGame.css";
 
 const CELL_SIZE = 30;
-let ROWS = Math.floor(document.innerHeight / CELL_SIZE); // 24;
-let COLS = Math.floor(document.innerWidth / CELL_SIZE); //50;
+let ROWS = Math.floor(window.innerHeight / CELL_SIZE); // 24;
+let COLS = Math.floor(window.innerWidth / CELL_SIZE); //50;
 const randomPosition = () => {
   return {
     row: Math.floor(Math.random() * ROWS),
@@ -21,15 +21,15 @@ function SnakeGame({ handleOnfailed }) {
   const [direction, setDirection] = useState("right");
   const boardRef = useRef();
   useEffect(() => {
-    ROWS = Math.floor(boardRef.current.offsetWidth / CELL_SIZE);
-    COLS = Math.floor(boardRef.current.offsetHeight / CELL_SIZE);
+    ROWS = Math.floor(boardRef.current.clientHeight / CELL_SIZE);
+    COLS = Math.floor(boardRef.current.clientWidth / CELL_SIZE);
   }, [boardRef.current]);
 
   useEffect(() => {
     const handleResizeScreen = () => {
       if (boardRef.current) {
-        ROWS = Math.floor(boardRef.current.offsetWidth / CELL_SIZE);
-        COLS = Math.floor(boardRef.current.offsetHeight / CELL_SIZE);
+        ROWS = Math.floor(boardRef.current.clientHeight / CELL_SIZE);
+        COLS = Math.floor(boardRef.current.clientWidth / CELL_SIZE);
       }
       // Use screenHeight and screenWidth as needed
     };
@@ -59,13 +59,13 @@ function SnakeGame({ handleOnfailed }) {
         head.row = head.row ? head.row - 1 : ROWS;
         break;
       case "down":
-        head.row = head.row === ROWS ? 0 : head.row + 1;
+        head.row = head.row === (ROWS-1) ? 0 : head.row + 1;
         break;
       case "left":
         head.col = head.col ? head.col - 1 : COLS;
         break;
       case "right":
-        head.col = head.col === COLS ? 0 : head.col + 1;
+        head.col = head.col === (COLS-1) ? 0 : head.col + 1;
         break;
       default:
         break;
