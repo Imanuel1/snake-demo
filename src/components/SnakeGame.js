@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Controller } from "./Controller";
 import "./SnakeGame.css";
 
 const CELL_SIZE = 30;
-let ROWS = Math.floor((window.innerHeight - 10) / CELL_SIZE); // 24;
-let COLS = Math.floor((window.innerWidth - 10) / CELL_SIZE); //50;
+let ROWS = Math.floor(document.innerHeight / CELL_SIZE); // 24;
+let COLS = Math.floor(document.innerWidth / CELL_SIZE); //50;
 const randomPosition = () => {
   return {
     row: Math.floor(Math.random() * ROWS),
@@ -19,11 +19,18 @@ function SnakeGame({ handleOnfailed }) {
   ]);
   const [food, setFood] = useState(randomPosition());
   const [direction, setDirection] = useState("right");
+  const boardRef = useRef();
+  useEffect(() => {
+    ROWS = Math.floor(boardRef.current.offsetWidth / CELL_SIZE);
+    COLS = Math.floor(boardRef.current.offsetHeight / CELL_SIZE);
+  }, [boardRef.current]);
 
   useEffect(() => {
     const handleResizeScreen = () => {
-      ROWS = Math.floor((window.innerHeight - 10) / CELL_SIZE);
-      COLS = Math.floor((window.innerWidth - 10) / CELL_SIZE);
+      if (boardRef.current) {
+        ROWS = Math.floor(boardRef.current.offsetWidth / CELL_SIZE);
+        COLS = Math.floor(boardRef.current.offsetHeight / CELL_SIZE);
+      }
       // Use screenHeight and screenWidth as needed
     };
     document.addEventListener("keydown", handleKeyPress);
@@ -49,16 +56,16 @@ function SnakeGame({ handleOnfailed }) {
     console.log("direction :", direction);
     switch (direction) {
       case "up":
-        head.row = head.row ? head.row - 1 : 24;
+        head.row = head.row ? head.row - 1 : ROWS;
         break;
       case "down":
-        head.row = head.row === 24 ? 0 : head.row + 1;
+        head.row = head.row === ROWS ? 0 : head.row + 1;
         break;
       case "left":
-        head.col = head.col ? head.col - 1 : 50;
+        head.col = head.col ? head.col - 1 : COLS;
         break;
       case "right":
-        head.col = head.col === 50 ? 0 : head.col + 1;
+        head.col = head.col === COLS ? 0 : head.col + 1;
         break;
       default:
         break;
@@ -131,9 +138,12 @@ function SnakeGame({ handleOnfailed }) {
     <>
       <div
         className="snake-game"
+        ref={boardRef}
         // tabIndex="0"
         // onKeyDown={handleKeyPress}
         style={{
+          width: "98vw",
+          height: "98vh",
           display: "grid",
           gridTemplateRows: `repeat(${ROWS}, ${CELL_SIZE}px)`,
           gridTemplateColumns: `repeat(${COLS}, ${CELL_SIZE}px)`,
